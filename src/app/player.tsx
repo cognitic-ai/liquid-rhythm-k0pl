@@ -1,4 +1,4 @@
-import { ScrollView, Text, View, Pressable, Slider } from "react-native";
+import { ScrollView, Text, View, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
@@ -7,6 +7,7 @@ import * as AC from "@bacons/apple-colors";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useAudio } from "@/components/audio-context";
+import Slider from "@react-native-community/slider";
 
 export default function PlayerRoute() {
   const [isLiked, setIsLiked] = useState(false);
