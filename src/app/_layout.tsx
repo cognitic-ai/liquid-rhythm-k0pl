@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
+import { AudioProvider } from "@/components/audio-context";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Tabs as WebTabs } from "expo-router/tabs";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
@@ -7,7 +8,9 @@ import { Platform, useWindowDimensions } from "react-native";
 export default function Layout() {
   return (
     <ThemeProvider>
-      <TabsLayout />
+      <AudioProvider>
+        <TabsLayout />
+      </AudioProvider>
     </ThemeProvider>
   );
 }
@@ -48,10 +51,24 @@ function WebTabsLayout() {
         }}
       />
       <WebTabs.Screen
-        name="info"
+        name="search"
         options={{
-          title: "Info",
-          tabBarIcon: (props) => <MaterialIcons {...props} name="info" />,
+          title: "Search",
+          tabBarIcon: (props) => <MaterialIcons {...props} name="search" />,
+        }}
+      />
+      <WebTabs.Screen
+        name="library"
+        options={{
+          title: "Your Library",
+          tabBarIcon: (props) => <MaterialIcons {...props} name="library-music" />,
+        }}
+      />
+      <WebTabs.Screen
+        name="player"
+        options={{
+          title: "Player",
+          tabBarIcon: (props) => <MaterialIcons {...props} name="play-circle-filled" />,
         }}
       />
     </WebTabs>
@@ -72,13 +89,35 @@ function NativeTabsLayout() {
           })}
         />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="info">
-        <NativeTabs.Trigger.Label>Info</NativeTabs.Trigger.Label>
+      <NativeTabs.Trigger name="search">
+        <NativeTabs.Trigger.Label>Search</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           {...Platform.select({
-            ios: { sf: "cursorarrow.rays" },
+            ios: { sf: { default: "magnifyingglass", selected: "magnifyingglass" } },
             default: {
-              src: <NativeTabs.Trigger.VectorIcon family={MaterialIcons} name="info" />,
+              src: <NativeTabs.Trigger.VectorIcon family={MaterialIcons} name="search" />,
+            },
+          })}
+        />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="library">
+        <NativeTabs.Trigger.Label>Your Library</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          {...Platform.select({
+            ios: { sf: { default: "books.vertical", selected: "books.vertical.fill" } },
+            default: {
+              src: <NativeTabs.Trigger.VectorIcon family={MaterialIcons} name="library-music" />,
+            },
+          })}
+        />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="player">
+        <NativeTabs.Trigger.Label>Player</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          {...Platform.select({
+            ios: { sf: { default: "play.circle", selected: "play.circle.fill" } },
+            default: {
+              src: <NativeTabs.Trigger.VectorIcon family={MaterialIcons} name="play-circle-filled" />,
             },
           })}
         />
